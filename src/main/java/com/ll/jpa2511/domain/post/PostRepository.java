@@ -1,6 +1,11 @@
 package com.ll.jpa2511.domain.post;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface PostRepository extends JpaRepository<Post long> {
+import java.util.List;
+
+@Repository
+public interface PostRepository extends JpaRepository<Post, Long> {
+    List<Post> findByUsername(String username);
 }
