@@ -45,4 +45,16 @@ public class PostService {
     public Optional<Post> findWithWriteLockById(Long id) {
         return postRepository.findWithWriteLockById(id);
     }
+
+    @SneakyThrows
+    @Transactional
+    public Post modifyOptimistic(Long id) {
+        Post post = postRepository.findById(id).orElseThrow();
+
+        // 스레드 10초간 일시정지
+        Thread.sleep(10_000);
+
+        post.setUsername(post.getUsername() + "!");
+        return post;
+    }
 }
